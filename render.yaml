@@ -1,0 +1,23 @@
+# Blueprint de Render: https://render.com/docs/blueprint-spec
+# En Render: New → Blueprint → conectar este repo. Crea el servicio web gratuito.
+services:
+  - type: web
+    name: qlq-el-dolar-api
+    runtime: node
+    plan: free
+    region: ohio
+    buildCommand: npm ci && npm run build
+    startCommand: node dist/main
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: RATES_REFRESH_CRON
+        value: "*/10 * * * *"
+      - key: BINANCE_ADS_SAMPLE
+        value: "10"
+      - key: CORS_ORIGINS
+        value: "*"
